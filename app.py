@@ -19,7 +19,7 @@ def Index():
     data = cur.fetchall()
     cur.close()
 
-    return render_template('index.html', champions_stats=data )
+    return render_template('index.html', champions_stats=data)
 
 
 @app.route('/insert', methods=['POST'])
@@ -34,7 +34,38 @@ def insert():
         Attributes = request.form['Attributes']
 
         cur = mysql.connection.cursor()
-        cur.execute("INSERT INTO champions_stats(Champions, EB_price, RP_price, Release_date, Attributes) VALUES (%s, %s, %s, %s, %s)", (Champions, EB_price, RP_price, Release_date, Attributes))
+        cur.execute(
+            "INSERT INTO champions_stats(Champions, EB_price, RP_price, Release_date, Attributes) VALUES (%s, %s, %s, "
+            "%s, %s)",
+            (Champions, EB_price, RP_price, Release_date, Attributes))
+        mysql.connection.commit()
+        return redirect(url_for('Index'))
+
+
+@app.route('/delete/<string:id_data>', methods=['GET'])
+def delete(id_data):
+    flash("Record Has Been Deleted Successfully")
+    cur = mysql.connection.cursor()
+    cur.execute("DELETE FROM champions_stats WHERE id=%s", (id_data,))
+    mysql.connection.commit()
+    return redirect(url_for('Index'))
+
+
+@app.route('/update', methods=['POST', 'GET'])
+def update():
+    if request.method == 'POST':
+        Champions = request.form['Champions']
+        EB_price = request.form['EB_price']
+        RP_price = request.form['RP_price']
+        Release_date = request.form['Release_date']
+        Attributes = request.form['Attributes']
+        cur = mysql.connection.cursor()
+        cur.execute("""
+               UPDATE champions_stats
+               SET EB_price=%s, RP_price=%s, Release_date=%s, Attributes=%s
+               WHERE Champions=%s 
+            """, (Champions, EB_price, RP_price, Release_date, Attributes))
+        flash("Data Updated Successfully")
         mysql.connection.commit()
         return redirect(url_for('Index'))
 

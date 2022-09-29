@@ -32,7 +32,7 @@
 
                 <button type="button" class="close" data-dismiss="alert" aria-label="close">
 
-                    <span aria-hidden="true">x</span>
+                    <span aria-hidden="true">&times;</span>
 
                 </button>
                 {{message}}
@@ -47,7 +47,6 @@
 
 
                 <tr>
-                    <th>Numero</th>
                     <th>Champions</th>
                     <th>EB_price</th>
                     <th>RP_price</th>
@@ -65,114 +64,220 @@
                     <td>{{row.2}}</td>
                     <td>{{row.3}}</td>
                     <td>{{row.4}}</td>
-                    <td>{{row.5}}</td>
                     <td>
-                        <a href="/update/{{row.0}}" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modaledit">Edit</a>
-                        <a href="/delete/{{row.0}}" class="btn btn-danger btn-xs" onclick="return confirm('Are You Sure For Delete?')">Delete</a>
+                        <a href="/update/{{row.0}}" class="btn btn-warning btn-xs" data-toggle="modal"
+                           data-target="#modaledit{{row.0}}">Edit</a>
+                        <a href="/delete/{{row.0}}" class="btn btn-danger btn-xs"
+                           onclick="return confirm('Are You Sure For Delete?')">Delete</a>
                     </td>
-
                 </tr>
+
+                <div id="modaledit{{row.0}}" class="modal fade" role="dialog">
+
+                    <div class="modal-dialog">
+
+                        <div class="modal-content">
+
+                            <div class="modal-header">
+
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                                <h4 class="modal-title">Please Update Data</h4>
+
+
+                            </div>
+
+
+                            <div class="modal-body">
+
+
+                                <form action="{{ url_for('update') }}" method="POST">
+
+
+                                    <div class="form-group">
+
+
+                                        <label>Champions:</label>
+                                        <input type="text" class="form-control" name="Champions" value="{{row.0}}">
+
+
+                                    </div>
+
+
+                                    <div class="form-group">
+
+
+                                        <label>EB_price:</label>
+                                        <input type="text" class="form-control" name="EB_price" value="{{row.1}}">
+
+
+                                    </div>
+
+
+                                    <div class="form-group">
+
+
+                                        <label>RP_price:</label>
+                                        <input type="text" class="form-control" name="RP_price" value="{{row.2}}">
+
+
+                                    </div>
+
+
+                                    <div class="form-group">
+
+
+                                        <label>Release_date:</label>
+                                        <input type="text" class="form-control" name="Release_date"
+                                               value="{{row.3}}">
+
+
+                                    </div>
+
+                                    <div class="form-group">
+
+
+                                        <label>Attributes:</label>
+                                        <input type="text" class="form-control" name="Attributes" value="{{row.4}}">
+
+
+                                    </div>
+
+
+                                    <div class="form-group">
+
+
+                                        <button class="btn btn-primary" type="submit">Update Data</button>
+
+
+                                    </div>
+
+
+                                </form>
+
+
+                            </div>
+
+
+                            <div class="modal-footer">
+
+
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+                </div>
                 {%endfor%}
+                </tbody>
             </table>
+
+
         </div>
-    </div>
 
 
-    <div id="modaledit" class="modal fade" role="dialog">
+        <div id="myModal" class="modal fade" role="dialog">
 
 
-        <div class="modal-dialog">
+            <div class="modal-dialog">
 
 
-            <div class="modal-content">
+                <div class="modal-content">
 
 
-                <div class="modal-header">
+                    <div class="modal-header">
 
 
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
 
 
-                    <h4 class="modal-title">Please Update Data</h4>
+                        <h4 class="modal-title">Please Insert Data</h4>
 
 
-                </div>
+                    </div>
 
 
-                <div class="modal-body">
+                    <div class="modal-body">
 
 
-                    <form action="" method="POST">
+                        <form action="{{url_for('insert')}}" method="POST">
 
 
-                        <div class="form-group">
+                            <div class="form-group">
 
 
-                            <label>Champions:</label>
-                            <input type="text" class="form-control" name="Champions" value="Melvin">
+                                <label>Champions:</label>
+                                <input type="text" class="form-control" name="Champions" required="1">
 
 
-                        </div>
+                            </div>
 
 
-                        <div class="form-group">
+                            <div class="form-group">
 
 
-                            <label>EB_price:</label>
-                            <input type="text" class="form-control" name="EB_price" value="450">
+                                <label>EB_price:</label>
+                                <input type="text" class="form-control" name="EB_price" required="1">
 
 
-                        </div>
+                            </div>
 
 
-                        <div class="form-group">
+                            <div class="form-group">
 
 
-                            <label>RP_price:</label>
-                            <input type="text" class="form-control" name="RP_price" value="275">
+                                <label>RP_price:</label>
+                                <input type="text" class="form-control" name="RP_price" required="1">
 
 
-                        </div>
+                            </div>
+
+                            <div class="form-group">
 
 
-                        <div class="form-group">
+                                <label>Release_date:</label>
+                                <input type="text" class="form-control" name="Release_date" required="1">
 
 
-                            <label>Release_date:</label>
-                            <input type="text" class="form-control" name="Release_date" value="2022-09-28">
+                            </div>
+
+                            <div class="form-group">
 
 
-                        </div>
-
-                        <div class="form-group">
-
-
-                            <label>Attributes:</label>
-                            <input type="text" class="form-control" name="Attributes" value="Fighter">
+                                <label>Attributes:</label>
+                                <input type="text" class="form-control" name="Attributes" required="1">
 
 
-                        </div>
+                            </div>
 
 
-                        <div class="form-group">
+                            <div class="form-group">
 
 
-                            <button class="btn btn-primary" type="submit">Update Data</button>
+                                <button class="btn btn-primary" type="submit">Insert Data</button>
 
 
-                        </div>
+                            </div>
 
 
-                    </form>
+                        </form>
 
 
-                </div>
+                    </div>
 
 
-                <div class="modal-footer">
+                    <div class="modal-footer">
 
 
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+
+                    </div>
 
 
                 </div>
@@ -182,116 +287,6 @@
 
 
         </div>
-
-
-    </div>
-
-
-    <div id="myModal" class="modal fade" role="dialog">
-
-
-        <div class="modal-dialog">
-
-
-            <div class="modal-content">
-
-
-                <div class="modal-header">
-
-
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-
-
-                    <h4 class="modal-title">Please Insert Data</h4>
-
-
-                </div>
-
-
-                <div class="modal-body">
-
-
-                    <form action="{{url_for('insert')}}" method="POST">
-
-
-                        <div class="form-group">
-
-
-                            <label>Champions:</label>
-                            <input type="text" class="form-control" name="Champions" required="1">
-
-
-                        </div>
-
-
-                        <div class="form-group">
-
-
-                            <label>EB_price:</label>
-                            <input type="text" class="form-control" name="EB_price" required="1">
-
-
-                        </div>
-
-
-                        <div class="form-group">
-
-
-                            <label>RP_price:</label>
-                            <input type="text" class="form-control" name="RP_price" required="1">
-
-
-                        </div>
-
-                        <div class="form-group">
-
-
-                            <label>Release_date:</label>
-                            <input type="text" class="form-control" name="Release_date" required="1">
-
-
-                        </div>
-
-                        <div class="form-group">
-
-
-                            <label>Attributes:</label>
-                            <input type="text" class="form-control" name="Attributes" required="1">
-
-
-                        </div>
-
-
-                        <div class="form-group">
-
-
-                            <button class="btn btn-primary" type="submit">Insert Data</button>
-
-
-                        </div>
-
-
-                    </form>
-
-
-                </div>
-
-
-                <div class="modal-footer">
-
-
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-
-
-                </div>
-
-
-            </div>
-
-
-        </div>
-
-
     </div>
 </div>
 {% endblock %}
