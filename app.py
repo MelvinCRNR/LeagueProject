@@ -42,11 +42,11 @@ def insert():
         return redirect(url_for('Index'))
 
 
-@app.route('/delete/<string:id_data>', methods=['GET'])
-def delete(id_data):
+@app.route('/delete/<string:Champions>', methods=['GET'])
+def delete(Champions):
     flash("Record Has Been Deleted Successfully")
     cur = mysql.connection.cursor()
-    cur.execute("DELETE FROM champions_stats WHERE id=%s", (id_data,))
+    cur.execute("DELETE FROM champions_stats WHERE Champions=%s", (Champions,))
     mysql.connection.commit()
     return redirect(url_for('Index'))
 
