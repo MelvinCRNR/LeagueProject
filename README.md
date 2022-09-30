@@ -1,42 +1,19 @@
 # LeagueProject
- League Of Legends - Champions Stats
+ League Of Legends - Champions Information
 
+## Introduction
+ Ce projet consiste en la création d'un site répertoriant la liste des champions de League Of Legends ainsi que des informations les concernants.
+ 
+ ## Architecture du projet
+ 
+ Le projet est composé en 3 parties, un côté backend, un frontend et la base de données.
+ 
+ ## Base de données
+ 
+ La base de données est une base MySQL hebergée sur le port localhost:3306.
+ L'image Docker utilisée est la suivante : arm64v8/mysql:8.0-oracle.
+ 
+ ![champions_stats](https://user-images.githubusercontent.com/43339150/193230965-54e3b7a8-7496-40d4-9dea-6153cf7d929d.png)
 
--- create
-CREATE TABLE CHAMPIONS (
-  id text PRIMARY KEY,
-  name text,
-  role text,
-  damage text
-);
+## Architecture des fichiers
 
--- insert
-INSERT INTO CHAMPIONS(id,name,role,damage) VALUES ('champion001', 'Aatrox', 'Toplaner', 'AD');
-INSERT INTO CHAMPIONS(id,name,role,damage) VALUES ('champion002', 'Ahri', 'Midlaner', 'AP');
-INSERT INTO CHAMPIONS(id,name,role,damage) VALUES ('champion003', 'Akali', 'Midlaner', 'AP');
-
--- fetch 
-SELECT * FROM CHAMPIONS;
-
-INSERT INTO CHAMPIONS JSON '{
-    "id": "champion004",
-    "name": "Akshan",
-    "role": "Midlaner",
-    "damage": "AD"
-}';
-
-CREATE TYPE champion (id text, name text, role text, damage text);
-
-CREATE table player(playerId text, playerName text, playerRank text, playerPoolchamp frozen<champion>, primary key(id));
-
-INSERT INTO player JSON '{
-    "playerId": "player001",
-    "playerName": "PLAYER001",
-    "playerRank" "SILVER 3",
-    "playerPoolchamp": {
-        "id": "champion005",
-        "name": "Alistar",
-        "role": "Support",
-        "damage": "AP"
-    }
-}';
